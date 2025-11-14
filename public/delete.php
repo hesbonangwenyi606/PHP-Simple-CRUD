@@ -1,13 +1,11 @@
 <?php
-require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Task.php';
-
 use App\Task;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     Task::create([
-        'title' => $_POST['title'],
-        'description' => $_POST['description']
+        'title' => $_POST['title'] ?? '',
+        'description' => $_POST['description'] ?? ''
     ]);
     header('Location: index.php');
     exit;
@@ -22,18 +20,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="bg-light">
 <div class="container py-5">
-    <h2>Create Task</h2>
+    <h2>Create New Task</h2>
     <form method="POST">
         <div class="mb-3">
-            <label class="form-label">Title</label>
+            <label>Title</label>
             <input type="text" name="title" class="form-control" required>
         </div>
         <div class="mb-3">
-            <label class="form-label">Description</label>
-            <textarea name="description" class="form-control" required></textarea>
+            <label>Description</label>
+            <textarea name="description" class="form-control" rows="4"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Add Task</button>
-        <a href="index.php" class="btn btn-secondary">Back</a>
+        <button class="btn btn-success">Create Task</button>
+        <a href="index.php" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 </body>
