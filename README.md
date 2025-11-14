@@ -15,17 +15,12 @@ Initialize the database (creates SQLite file and seeds an example task):
 php init.php
 
 
-Start the PHP built-in server from the project root:
-
+### Start the PHP built-in server from the project root:
 php -S localhost:8000 -t public
-
-
 Open in your browser:
-
 http://localhost:8000
 
-You should see the task list and be able to create, edit, and delete tasks.
-
+## You should see the task list and be able to create, edit, and delete tasks.
 Project Structure
 php_simple_crud/
 ├── data/
