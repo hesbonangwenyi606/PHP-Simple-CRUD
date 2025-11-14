@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../src/Task.php';
+
 use App\Task;
 
 $tasks = Task::all();
@@ -24,6 +25,8 @@ $tasks = Task::all();
                 <h5 class="card-title"><?= htmlspecialchars($task['title']) ?></h5>
                 <p class="card-text"><?= nl2br(htmlspecialchars($task['description'])) ?></p>
                 <p class="text-muted small">#<?= $task['id'] ?> • <?= $task['created_at'] ?></p>
+                <a href="edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
             </div>
         </div>
     <?php endforeach; ?>
