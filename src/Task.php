@@ -1,19 +1,7 @@
 <?php
 namespace App;
 
-use PDO;
-
-class Database {
-    private static $pdo;
-    public static function get(): PDO {
-        if (!self::$pdo) {
-            $path = __DIR__ . '/../data/database.sqlite';
-            self::$pdo = new PDO('sqlite:' . $path);
-            self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        }
-        return self::$pdo;
-    }
-}
+require_once __DIR__ . '/Database.php';
 
 class Task {
     public static function all() {
@@ -29,5 +17,5 @@ class Task {
         return $pdo->lastInsertId();
     }
 
-    // ... update, delete, find methods ...
+    // Optional: add update, delete, find here...
 }
