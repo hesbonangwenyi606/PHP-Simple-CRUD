@@ -1,8 +1,11 @@
 <?php
-require __DIR__ . '/../src/autoload.php';
+// Include required class files
+require __DIR__ . '/../src/Database.php';
+require __DIR__ . '/../src/Task.php';
 
-use App\Task;  // ← Add this line to import Task class
+use App\Task;
 
+// Fetch all tasks
 $tasks = Task::all();
 ?>
 <!DOCTYPE html>
@@ -22,7 +25,6 @@ $tasks = Task::all();
                 <th>ID</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Created At</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -32,7 +34,6 @@ $tasks = Task::all();
                 <td><?= $task['id'] ?></td>
                 <td><?= htmlspecialchars($task['title']) ?></td>
                 <td><?= htmlspecialchars($task['description']) ?></td>
-                <td><?= $task['created_at'] ?></td>
                 <td>
                     <a href="edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-success">Edit</a>
                     <a href="delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger">Delete</a>

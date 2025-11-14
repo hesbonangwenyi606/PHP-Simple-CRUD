@@ -1,5 +1,11 @@
 <?php
-require __DIR__ . '/../src/Task.php';
+// Include dependencies only once
+require_once __DIR__ . '/../src/Database.php';
+require_once __DIR__ . '/../src/Task.php';
+
+use App\Task;
+
+// Fetch all tasks
 $tasks = Task::all();
 ?>
 <!DOCTYPE html>
@@ -17,6 +23,10 @@ $tasks = Task::all();
         <h2 class="fw-bold">PHP Simple Tasks</h2>
         <a href="create.php" class="btn btn-primary">+ New Task</a>
     </div>
+
+    <?php if (count($tasks) === 0): ?>
+        <p class="text-muted">No tasks found.</p>
+    <?php endif; ?>
 
     <?php foreach ($tasks as $task): ?>
         <div class="card mb-3 shadow-sm">
