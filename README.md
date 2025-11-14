@@ -1,5 +1,4 @@
-PHP Simple CRUD (SQLite)
-
+### PHP Simple CRUD (SQLite)
 A simple PHP project (no frameworks) demonstrating a Tasks CRUD app using SQLite and PDO. This project allows you to create, read, update, and delete tasks with a minimal setup.
 
 ### Requirements
