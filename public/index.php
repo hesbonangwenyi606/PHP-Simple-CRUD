@@ -1,64 +1,38 @@
 <?php
-require_once __DIR__ . '/../src/Database.php';
-require_once __DIR__ . '/../src/Task.php';
-require_once __DIR__ . '/../templates/header.php';
-use App\Task;
+require __DIR__ . '/../src/Task.php';
+$tasks = Task::all();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PHP Simple Tasks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
 
-// simple router based on ?action and id
-$action = $_GET['action'] ?? 'list';
-if ($action === 'list') {
-    $tasks = Task::all();
-?>
-  <a class="button" href="?action=new">+ New Task</a>
-  <ul class="tasks">
-  <?php foreach ($tasks as $t): ?>
-    <li>
-      <strong><?=htmlspecialchars($t['title'])?></strong>
-      <div class="meta">#<?=$t['id']?> • <?=$t['created_at']?></div>
-      <div class="desc"><?=nl2br(htmlspecialchars($t['description']))?></div>
-      <div class="actions">
-        <a href="?action=edit&id=<?=$t['id']?>">Edit</a> |
-        <a href="?action=delete&id=<?=$t['id']?>" onclick="return confirm('Delete?')">Delete</a>
-      </div>
-    </li>
-  <?php endforeach; ?>
-  </ul>
-<?php
-} elseif ($action === 'new') {
-?>
-  <h2>New Task</h2>
-  <form method="post" action="?action=create">
-    <label>Title<br><input name="title" required></label><br>
-    <label>Description<br><textarea name="description"></textarea></label><br>
-    <button type="submit">Create</button>
-    <a href="/">Cancel</a>
-  </form>
-<?php
-} elseif ($action === 'create' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    Task::create($_POST);
-    header('Location: /');
-    exit;
-} elseif ($action === 'edit' && isset($_GET['id'])) {
-    $task = Task::find($_GET['id']);
-?>
-  <h2>Edit Task #<?=$task['id']?></h2>
-  <form method="post" action="?action=update&id=<?=$task['id']?>">
-    <label>Title<br><input name="title" value="<?=htmlspecialchars($task['title'])?>" required></label><br>
-    <label>Description<br><textarea name="description"><?=htmlspecialchars($task['description'])?></textarea></label><br>
-    <button type="submit">Save</button>
-    <a href="/">Cancel</a>
-  </form>
-<?php
-} elseif ($action === 'update' && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
-    Task::update($_GET['id'], $_POST);
-    header('Location: /');
-    exit;
-} elseif ($action === 'delete' && isset($_GET['id'])) {
-    Task::delete($_GET['id']);
-    header('Location: /');
-    exit;
-} else {
-    echo "<p>Unknown action.</p>";
-}
+<div class="container py-5">
 
-require_once __DIR__ . '/../templates/footer.php';
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">PHP Simple Tasks</h2>
+        <a href="create.php" class="btn btn-primary">+ New Task</a>
+    </div>
+
+    <?php foreach ($tasks as $task): ?>
+        <div class="card mb-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title"><?= htmlspecialchars($task['title']) ?></h5>
+                <p class="card-text"><?= nl2br(htmlspecialchars($task['description'])) ?></p>
+                <p class="text-muted small">
+                    #<?= $task['id'] ?> • <?= $task['created_at'] ?>
+                </p>
+                <a href="edit.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                <a href="delete.php?id=<?= $task['id'] ?>" class="btn btn-sm btn-danger">Delete</a>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
+</div>
+
+</body>
+</html>
