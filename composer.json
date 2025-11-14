@@ -1,0 +1,5 @@
+{
+  "name": "example/php-simple-crud",
+  "description": "Simple PHP CRUD app using SQLite",
+  "require": {}
+}
