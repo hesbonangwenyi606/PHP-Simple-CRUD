@@ -43,16 +43,10 @@ php_simple_crud/
 ├── init.php               # Creates and seeds SQLite database
 └── README.md              # Project documentation
 
-Features
-
+## Features
 Create new tasks with title and description
-
 Read all tasks with timestamp
-
 Update task title and description
-
 Delete tasks
-
 Fully functional CRUD using PDO and SQLite
-
 Minimal Bootstrap 5 styling
