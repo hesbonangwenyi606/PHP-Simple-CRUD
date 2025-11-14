@@ -3,6 +3,8 @@ namespace App;
 
 require_once __DIR__ . '/Database.php';
 
+use PDO; // <-- this line ensures we use PHP's PDO class
+
 class Task {
 
     public static function all() {
