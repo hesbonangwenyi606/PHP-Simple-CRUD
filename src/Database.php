@@ -1,9 +1,11 @@
 <?php
 namespace App;
+
 use PDO;
 
 class Database {
     private static $pdo;
+
     public static function get(): PDO {
         if (!self::$pdo) {
             $path = __DIR__ . '/../data/database.sqlite';

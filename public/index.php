@@ -1,11 +1,8 @@
 <?php
-// Include dependencies only once
-require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Task.php';
 
 use App\Task;
 
-// Fetch all tasks
 $tasks = Task::all();
 ?>
 <!DOCTYPE html>
@@ -18,7 +15,6 @@ $tasks = Task::all();
 <body class="bg-light">
 
 <div class="container py-5">
-
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="fw-bold">PHP Simple Tasks</h2>
         <a href="create.php" class="btn btn-primary">+ New Task</a>
