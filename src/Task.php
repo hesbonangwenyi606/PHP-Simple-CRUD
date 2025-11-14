@@ -1,6 +1,5 @@
 <?php
 namespace App;
-
 use PDO;
 
 class Task {
@@ -19,7 +18,7 @@ class Task {
 
     public static function create($data) {
         $pdo = Database::get();
-        $stmt = $pdo->prepare('INSERT INTO tasks (title, description) VALUES (?, ?)');
+        $stmt = $pdo->prepare('INSERT INTO tasks (title, description, created_at) VALUES (?, ?, datetime("now"))');
         $stmt->execute([$data['title'], $data['description']]);
         return $pdo->lastInsertId();
     }
@@ -36,4 +35,3 @@ class Task {
         return $stmt->execute([(int)$id]);
     }
 }
-
