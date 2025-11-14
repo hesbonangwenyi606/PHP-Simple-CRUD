@@ -1,28 +1,20 @@
 <?php
-$dir = __DIR__ . '/data';
-if (!is_dir($dir)) mkdir($dir);
+require __DIR__ . '/src/Database.php';
 
-$path = $dir . '/database.sqlite';
-if (file_exists($path)) {
-    echo "Database already exists at: $path\n";
-    exit;
-}
+use App\Database;
 
-$pdo = new PDO('sqlite:' . $path);
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-$pdo->exec("
-CREATE TABLE tasks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    description TEXT NOT NULL,
-    created_at TEXT NOT NULL
-);
+$db = Database::get();
+$db->exec("
+    CREATE TABLE IF NOT EXISTS tasks (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        description TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
 ");
 
-$pdo->exec("
-INSERT INTO tasks (title, description, created_at) VALUES
-('Example Task', 'This is a seeded task.', datetime('now'));
-");
+// Seed example task
+$stmt = $db->prepare("INSERT INTO tasks (title, description) VALUES (?, ?)");
+$stmt->execute(['Example task', 'This is a seeded task.']);
 
-echo "Database created and seeded at: $path\n";
+echo "Database ready at: " . __DIR__ . "/data/database.sqlite\n";
