@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../src/Task.php';
-
-use App\Task; // Import the Task class with namespace
+use App\Task;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     Task::create([
